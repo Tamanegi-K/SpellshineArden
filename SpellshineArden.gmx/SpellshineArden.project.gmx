@@ -8,15 +8,40 @@
   <sprites name="sprites">
     <sprite>sprites\spr_PlaceholderWall</sprite>
     <sprite>sprites\spr_PlaceholderBorder</sprite>
+    <sprite>sprites\spr_DeletBorder</sprite>
     <sprite>sprites\spr_PlaceholderPlayer</sprite>
     <sprite>sprites\spr_PlaceholderBoss</sprite>
+    <sprites name="Enemy Bullet Sprites">
+      <sprite>sprites\spr_ball</sprite>
+      <sprite>sprites\spr_bullet</sprite>
+      <sprite>sprites\spr_donut</sprite>
+      <sprite>sprites\spr_orb</sprite>
+      <sprite>sprites\spr_petal</sprite>
+      <sprite>sprites\spr_pew</sprite>
+      <sprite>sprites\spr_shard</sprite>
+      <sprite>sprites\spr_shell</sprite>
+      <sprite>sprites\spr_sphere</sprite>
+      <sprite>sprites\spr_talisman</sprite>
+    </sprites>
+    <sprites name="Player Bullet Sprites">
+      <sprite>sprites\spr_MarsBasic</sprite>
+    </sprites>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
+  <scripts name="scripts">
+    <script>scripts\draw_text_outline.gml</script>
+    <script>scripts\fire.gml</script>
+    <script>scripts\instance_nth_nearest.gml</script>
+  </scripts>
   <objects name="objects">
+    <object>objects\sys_HP</object>
     <object>objects\obj_Wall</object>
+    <object>objects\obj_DeletBorder</object>
     <object>objects\obj_Gamer</object>
     <object>objects\obj_Boss</object>
+    <object>objects\obj_EnemyFire</object>
+    <object>objects\obj_GamerBasicFire</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_Test</room>

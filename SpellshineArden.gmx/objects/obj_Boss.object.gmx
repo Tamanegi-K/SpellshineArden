@@ -3,11 +3,469 @@
   <spriteName>spr_PlaceholderBoss</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
+  <depth>10</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
-  <events/>
+  <events>
+    <event eventtype="0" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>testalarm = 70
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// = = = = = = = = = = = = = = = = = = = = = = = = = =
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Create Variables
+global.HPMax = 800 //HP Value, greenbar
+global.HP = global.HPMax 
+global.HPDecay = 3 //Time before Increment takes place
+global.HPDecdec = 0 //Decay is applied to this variable
+global.HPState = "Normal" //Normal, Heal, Damage
+global.HPIncrement = global.HPMax //Background coloured bar
+BackCol = c_white
+c_fanblue = make_color_rgb(155, 155, 255)
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if testalarm &gt;= 0
+    {
+    testalarm -= 1
+    }
+
+else
+    {
+    testalarm = 45
+    }
+
+if testalarm == 35
+    {
+    FireAngle = point_direction(x, y, obj_Gamer.x, obj_Gamer.y)
+    repeat (60)
+        {
+        fire(x, y, "talisman", 7, 0, FireAngle, 2, 0, 0, 0, 0)
+        FireAngle += 6
+        }
+        
+    PewSpeed = 3
+    repeat (5)
+        {
+        fire(x, y, "shard", 10, 1, FireAngle, PewSpeed, 0, 0, 0, 0)
+        PewSpeed += 0.5
+        }
+    }
+    
+else if testalarm == 20
+    {
+    FireAngle = point_direction(x, y, obj_Gamer.x, obj_Gamer.y) + 5
+    repeat (20)
+        {
+        repeat(3)            
+            {
+            fire(x, y, "talisman", 0, 0, FireAngle, 2, 0, 0, 0, 0)
+            FireAngle += 3
+            }
+        FireAngle += 9
+        }
+    }
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/*if testalarm &gt;= 0
+    {
+    testalarm -= 1
+    }
+
+else
+    {
+    testalarm = 2
+    }
+
+if testalarm == 2
+    {
+    repeat (16)
+        {
+        fire(x, y, choose("ball", "orb", "petal", "pew", "shard", "talisman"), irandom_range(0, 11), random(2), random(360), random_range(1.2, 2.8), 0, 0, 0, 0)
+        }
+    }
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// = = = NOTE: TO TRANSFER HP SHIT TO A CONTROLLER = = =
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Decay Countdown &amp; Increments
+
+if (global.HPDecdec &gt; 0) //and (global.HPIncrement == global.HPPreIncrement)
+    {
+    global.HPDecdec -= 1
+    }
+    
+/*if (global.HPIncrement != global.HPPreIncrement) and (global.HPDecdec &gt; 0)
+    {
+    global.HPPreIncrement = global.HPIncrement
+    }
+    
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///ZeroMax Limiting
+
+if global.HP &gt; global.HPMax
+    {
+    global.HP = global.HPMax
+    }
+    
+else if global.HP &lt; 0
+    {
+    global.HP = 0
+    }    
+    
+    
+if global.HPIncrement &gt; global.HPMax
+    {
+    global.HPIncrement = global.HPMax
+    }
+    
+else if global.HPIncrement &lt; 0
+    {
+    global.HPIncrement = 0
+    } 
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///HP Lerping
+
+if (global.HPState == "Damage") and (global.HPDecdec &lt;= 0)
+    {
+    //show_message("oof")
+    Change = lerp(0, global.HPIncrement - global.HP, 0.2)
+    global.HPIncrement -= Change
+    
+    if round(Change) == 0
+        {
+        global.HPState = "Normal"
+        global.HPIncrement = global.HP
+        }
+    }
+    
+else if (global.HPState == "Healing") and (global.HPDecdec &lt;= 0)
+    {
+    //show_message("oof")
+    Change = lerp(0, global.HPIncrement - global.HP, 0.2)
+    global.HP += Change
+    
+    if round(Change) == 0
+        {
+        global.HPState = "Normal"
+        global.HP = global.HPIncrement
+        }
+    }
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///BackCol Assignment
+
+if global.HPState == "Normal"
+    {
+    BackCol = c_white
+    }
+    
+else if global.HPState == "Damage"
+    {
+    BackCol = c_red
+    }
+    
+else if global.HPState == "Healing"
+    {
+    BackCol = c_fanblue
+    }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="4" ename="obj_GamerBasicFire">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>effect_create_above(ef_smokeup, other.x, other.y, 0, c_purple)
+instance_destroy(other)
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if global.HPState != "Healing"
+    {
+    global.HP -= 6
+    global.HPDecdec = global.HPDecay
+    global.HPState = "Damage"
+    }
+
+if global.HP &lt;= 0
+    {
+    effect_create_above(ef_explosion, x, y, 2, c_red)
+    effect_create_above(ef_explosion, x, y, 1, c_yellow)
+    effect_create_above(ef_explosion, x, y, 0, c_white)
+    instance_destroy(self)
+    instance_destroy(obj_EnemyFire)
+    }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="64">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Draw HP
+
+BarX1 = 260
+BarX2 = 1020
+BarY1 = 36
+BarY2 = 46
+
+//Back
+draw_healthbar(BarX1, BarY1, BarX2, BarY2, (global.HPIncrement / global.HPMax) * 100, c_black, BackCol, BackCol, 0, true, true)
+
+//Front
+draw_healthbar(BarX1, BarY1, BarX2, BarY2, (global.HP / global.HPMax) * 100, c_black, c_lime, c_lime, 0, false, false)
+
+/*
+if (global.HP &gt;= (global.HPMax / 3))
+    {draw_set_color(c_white)}
+else
+    {draw_set_color(c_red)}
+    
+draw_text(64, 128, "HP " + string(round(global.HP)) + " / " + string(global.HPMax))
+
+draw_set_color(c_white)
+//draw_text(64, 200, global.HPIncrement)
+draw_text(64, 300, global.HPDecdec)
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+  </events>
   <PhysicsObject>0</PhysicsObject>
   <PhysicsObjectSensor>0</PhysicsObjectSensor>
   <PhysicsObjectShape>0</PhysicsObjectShape>
