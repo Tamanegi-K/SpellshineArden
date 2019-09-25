@@ -63,8 +63,8 @@ TapFireLimit = 6
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Controls and Speed Handling
-
+            <string>///Controls and Speed Handling (WASD)
+/*
 if (!keyboard_check(ord("W")) and !keyboard_check(ord("S")))
     {vspeed = 0}
 else if keyboard_check(ord("W"))
@@ -83,6 +83,79 @@ if keyboard_check(vk_shift) or keyboard_check(ord("L"))
     {GamerSpd = SpdFocus}
 else
     {GamerSpd = SpdNormal}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Controls and Speed Handling (Arrow Keys)
+
+if (!keyboard_check(vk_up) and !keyboard_check(vk_down))
+    {vspeed = 0}
+else if keyboard_check(vk_up)
+    if (!place_meeting(x, y - GamerSpd, obj_Wall)) 
+        {vspeed = -GamerSpd}
+else if keyboard_check(vk_down)
+    if (!place_meeting(x, y + GamerSpd, obj_Wall))
+        {vspeed = GamerSpd}
+
+if (!keyboard_check(vk_left) and !keyboard_check(vk_right))
+    {hspeed = 0}
+else if keyboard_check(vk_left)
+    if (!place_meeting(x - GamerSpd, y, obj_Wall))
+        {hspeed = -GamerSpd}
+else if keyboard_check(vk_right)
+    if (!place_meeting(x + GamerSpd, y, obj_Wall))
+        {hspeed = GamerSpd}
+    
+if keyboard_check(vk_shift) or keyboard_check(ord("L"))
+    {GamerSpd = SpdFocus}
+else
+    {GamerSpd = SpdNormal}
+
+/*  
+    //To Wall
+if (keyboard_check(ord("A")))
+    {
+    if (!place_meeting(x - Speed, y, obj_Wall))
+        {
+        x -= Speed;
+        Moving = true;
+        sprite_index = SpriteLeft;
+        }
+    }
+if (keyboard_check(ord("D")))
+    {
+    if (!place_meeting(x + Speed, y, obj_Wall))
+        {
+        x += Speed;
+        Moving = true;
+        sprite_index = SpriteRight;
+        }
+    }
+if (keyboard_check(ord("W")))
+    {
+    if (!place_meeting(x, y - Speed, obj_Wall))
+        {
+        y -= Speed;
+        Moving = true;
+        sprite_index = SpriteUp;
+        }
 </string>
           </argument>
         </arguments>
@@ -139,6 +212,7 @@ else
           <argument>
             <kind>1</kind>
             <string>///Fire Button
+/*
 if keyboard_check(ord("J")) and (TapFire = TapFireLimit)
     {
     instance_create(x - 7, y, obj_GamerBasicFire)
@@ -170,6 +244,62 @@ if (TapFire &gt; 0) and (TapFire != TapFireLimit) and !keyboard_check(ord("J"))
     }
     
 else if !keyboard_check(ord("J"))
+    {
+    FireIn = FireCD
+    TapFire = TapFireLimit
+    }
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Fire Button (Z)
+if keyboard_check(ord("Z")) and (TapFire = TapFireLimit)
+    {
+    instance_create(x - 7, y, obj_GamerBasicFire)
+    instance_create(x + 7, y, obj_GamerBasicFire)
+    FireIn -= 1
+    TapFire -= 1
+    }
+    
+else if keyboard_check(ord("Z"))
+    {
+    FireIn -= 1
+    }
+    
+    
+    
+if FireIn &lt;= 0
+    {
+    instance_create(x - 7, y, obj_GamerBasicFire)
+    instance_create(x + 7, y, obj_GamerBasicFire)
+    TapFire -= 1
+    FireIn = FireCD
+    }
+    
+    
+    
+if (TapFire &gt; 0) and (TapFire != TapFireLimit) and !keyboard_check(ord("Z"))
+    {
+    FireIn -= 1
+    }
+    
+else if !keyboard_check(ord("Z"))
     {
     FireIn = FireCD
     TapFire = TapFireLimit

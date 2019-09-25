@@ -26,6 +26,8 @@
           <argument>
             <kind>1</kind>
             <string>testalarm = 70
+
+phase = 0
 </string>
           </argument>
         </arguments>
@@ -68,7 +70,7 @@
           <argument>
             <kind>1</kind>
             <string>///Create Variables
-global.HPMax = 800 //HP Value, greenbar
+global.HPMax = 99999990 //HP Value, greenbar
 global.HP = global.HPMax 
 global.HPDecay = 3 //Time before Increment takes place
 global.HPDecdec = 0 //Decay is applied to this variable
@@ -98,7 +100,10 @@ c_fanblue = make_color_rgb(155, 155, 255)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if testalarm &gt;= 0
+            <string>if phase == 1
+{
+
+if testalarm &gt;= 0
     {
     testalarm -= 1
     }
@@ -138,6 +143,8 @@ else if testalarm == 20
         FireAngle += 9
         }
     }
+    
+}
 </string>
           </argument>
         </arguments>
@@ -158,7 +165,11 @@ else if testalarm == 20
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/*if testalarm &gt;= 0
+            <string>if phase == 2
+{
+intensity = global.HPMax / global.HP
+
+if testalarm &gt;= 0
     {
     testalarm -= 1
     }
@@ -170,11 +181,14 @@ else
 
 if testalarm == 2
     {
-    repeat (16)
+    repeat (16 + intensity)
         {
-        fire(x, y, choose("ball", "orb", "petal", "pew", "shard", "talisman"), irandom_range(0, 11), random(2), random(360), random_range(1.2, 2.8), 0, 0, 0, 0)
+        fire(x, y, choose("ball", "orb", "petal", "pew", "shard", "talisman"), irandom_range(0, 11), random(2), random(360), random_range(1.2 + intensity, 2.8 + intensity), 0, 0, 0, 0)
+        intensity = global.HPMax / global.HP
         }
     }
+    
+}
 </string>
           </argument>
         </arguments>
@@ -460,6 +474,58 @@ draw_set_color(c_white)
 //draw_text(64, 200, global.HPIncrement)
 draw_text(64, 300, global.HPDecdec)
 
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="50">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>phase = 2
+global.HPMax = 2000
+instance_destroy(obj_EnemyFire)
+global.HP = global.HPMax 
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="49">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>phase = 1
+global.HPMax = 900
+instance_destroy(obj_EnemyFire)
+global.HP = global.HPMax 
 </string>
           </argument>
         </arguments>
