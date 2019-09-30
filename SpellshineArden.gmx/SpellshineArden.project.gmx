@@ -26,6 +26,9 @@
     <sprites name="Player Bullet Sprites">
       <sprite>sprites\spr_MarsBasic</sprite>
     </sprites>
+    <sprite>sprites\spr_Empty</sprite>
+    <sprite>sprites\spr_InvisDimon</sprite>
+    <sprite>sprites\spr_EnemyTracker</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -33,15 +36,27 @@
     <script>scripts\draw_text_outline.gml</script>
     <script>scripts\fire.gml</script>
     <script>scripts\instance_nth_nearest.gml</script>
+    <script>scripts\aim_player.gml</script>
+    <script>scripts\bouncebear.gml</script>
+    <script>scripts\bounceoffball.gml</script>
+    <script>scripts\bouncespeckix.gml</script>
+    <script>scripts\bouncekihu.gml</script>
   </scripts>
+  <fonts name="fonts">
+    <font>fonts\fnt_PressStart2P16</font>
+    <font>fonts\fnt_PressStart2P8</font>
+  </fonts>
   <objects name="objects">
     <object>objects\sys_HP</object>
+    <object>objects\sys_BossMover</object>
+    <object>objects\obj_Border</object>
     <object>objects\obj_Wall</object>
     <object>objects\obj_DeletBorder</object>
     <object>objects\obj_Gamer</object>
     <object>objects\obj_Boss</object>
     <object>objects\obj_EnemyFire</object>
     <object>objects\obj_GamerBasicFire</object>
+    <object>objects\sys_EnemyRadar</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_Test</room>

@@ -1,4 +1,4 @@
-//Usage: fire(x, y, type, colour, depth, angle, speed, bounce, traveltype, lifetime, deathaction)
+///Usage: fire(x, y, type, colour, depth, angle, speed, bounce, traveltype, lifetime, deathaction)
 
 var          xx = argument0; //x coordinate
 var          yy = argument1; //y coordinate

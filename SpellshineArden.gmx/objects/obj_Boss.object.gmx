@@ -26,7 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>testalarm = 70
-
+testtimer = 99.9 * 60
 phase = 0
 </string>
           </argument>
@@ -100,7 +100,8 @@ c_fanblue = make_color_rgb(155, 155, 255)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if phase == 1
+            <string>///phase1
+if phase == 1
 {
 
 if testalarm &gt;= 0
@@ -110,37 +111,48 @@ if testalarm &gt;= 0
 
 else
     {
-    testalarm = 45
+    testalarm = 95
     }
 
-if testalarm == 35
+if (testalarm == 35) or (testalarm == 85)
     {
-    FireAngle = point_direction(x, y, obj_Gamer.x, obj_Gamer.y)
-    repeat (60)
+    FireAngle = aim_player(x, y)
+    repeat (50)
         {
-        fire(x, y, "talisman", 7, 0, FireAngle, 2, 0, 0, 0, 0)
-        FireAngle += 6
+        fire(x, y, "talisman", 7, 0, FireAngle, 1.4, 0, 0, 0, 0)
+        FireAngle += 7.2
         }
         
-    PewSpeed = 3
+    PewSpeed = 1.9
     repeat (5)
         {
         fire(x, y, "shard", 10, 1, FireAngle, PewSpeed, 0, 0, 0, 0)
-        PewSpeed += 0.5
+        fire(x, y, "shard", 10, 1, FireAngle + 30, PewSpeed, 0, 0, 0, 0)
+        fire(x, y, "shard", 10, 1, FireAngle - 30, PewSpeed, 0, 0, 0, 0)
+        PewSpeed += 0.6
         }
     }
     
-else if testalarm == 20
+else if (testalarm == 20) or (testalarm == 70)
     {
-    FireAngle = point_direction(x, y, obj_Gamer.x, obj_Gamer.y) + 5
+    FireAngle = aim_player(x, y) + 5
     repeat (20)
         {
         repeat(3)            
             {
-            fire(x, y, "talisman", 0, 0, FireAngle, 2, 0, 0, 0, 0)
+            fire(x, y, "talisman", 0, 0, FireAngle, 1.4, 0, 0, 0, 0)
             FireAngle += 3
             }
         FireAngle += 9
+        }
+    }
+    
+if testalarm == 3
+    {
+    if instance_number(sys_BossMover) &lt;= 0
+        {
+        Mover = instance_create(x, y, sys_BossMover)
+        Mover.Activity = 10
         }
     }
     
@@ -165,7 +177,8 @@ else if testalarm == 20
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if phase == 2
+            <string>///phase2
+if phase == 2
 {
 intensity = global.HPMax / global.HP
 
@@ -181,14 +194,273 @@ else
 
 if testalarm == 2
     {
-    repeat (16 + intensity)
+    repeat (10)
         {
-        fire(x, y, choose("ball", "orb", "petal", "pew", "shard", "talisman"), irandom_range(0, 11), random(2), random(360), random_range(1.2 + intensity, 2.8 + intensity), 0, 0, 0, 0)
-        intensity = global.HPMax / global.HP
+        if intensity &gt;= 2.7
+            {intensity = 2.7}
+        fire(x, y, choose("ball", "orb", "petal", "pew", "shard", "talisman"), irandom_range(0, 11), random(2), random(360), random_range(1 + intensity, 2 + intensity), 0, 0, 0, 0)
+        intensity = (global.HPMax / global.HP) / 7
+        }
+
+    if instance_number(sys_BossMover) &lt;= 0
+        {
+        Mover = instance_create(x, y, sys_BossMover)
+        Mover.Activity = 10
         }
     }
     
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///phase3
+if phase == 3
+{
+
+if testalarm &gt;= 0
+    {
+    testalarm -= 1
+    }
+
+else
+    {
+    testalarm = 280
+    
+    Turn = choose("CW", "ACW")
+    Spinner = testalarm - 2
+    AngleInc = 0
+    AngleVel = 0.2
+    }
+
+if (testalarm &gt; 120) and (Spinner &gt;= testalarm) 
+    {
+    fire(x, y, "shard", 6, 1,   0 + AngleInc, 2.3, 0, 0, 0, 0)
+    fire(x, y, "shard", 6, 1, 180 + AngleInc, 2.3, 0, 0, 0, 0)
+    repeat (floor(1 + (AngleVel / 10)))
+        {fire(x, y, "pew", 7, 0, random(360), 1.6, 0, 0, 0, 0)}
+    
+    if Turn == "ACW"
+        {AngleInc += 5 + AngleVel}
+    else if Turn == "CW"
+        {AngleInc -= 5 + AngleVel}
+        
+    Spinner = testalarm - 2
+    AngleVel += 0.33
+    }
+    
+if (testalarm == 120)
+    {
+    FireAngle = aim_player(x, y)
+    SpeedDown = 3.9
+    
+    repeat(9)
+        {
+        repeat (45)
+            {
+            fire(x, y, "petal", 8, 0, FireAngle, SpeedDown, 0, 0, 0, 0)
+            if Turn == "ACW"
+                {FireAngle += 8}
+            else if Turn == "CW"
+                {FireAngle -= 8}
+            }
+
+        if Turn == "ACW"
+            {FireAngle += 10}
+        else if Turn == "CW"
+            {FireAngle -= 10}
+        SpeedDown -= 0.26
+        }
+        
+    if instance_number(sys_BossMover) &lt;= 0
+        {
+        Mover = instance_create(x, y, sys_BossMover)
+        Mover.Activity = 14
+        }
+    }
+    
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///phase4
+if phase == 4
+{
+
+if testalarm &gt;= 0
+    {
+    testalarm -= 1
+    }
+
+else
+    {
+    testalarm = 276
+    }
+
+if (testalarm == 59) or (testalarm == 128) or (testalarm == 197) or (testalarm == 266)
+    {
+    ThisWay = random(360)
+    repeat(5)
+        {
+        SpdDwn = 0.2
+        GapWider = 0.4
+        Coleur = 11
+        PewChange = 0
+        
+        fire(x, y, "petal", 0, 2, ThisWay, 3, 1, 0, 0, 0)
+        fire(x, y, "donut", 1, 0, ThisWay, 2, 1, 0, 0, 0)
+        
+        repeat(7)
+            {
+            fire(x, y,  "pew" , 2, 0, ThisWay, 2 - PewChange, 1, 0, 0, 0)
+            PewChange += 0.13
+            }
+            
+        repeat(5)
+            {
+            repeat(2)
+                {
+                fire(x, y, "petal", Coleur, 1, ThisWay + GapWider, 3 - SpdDwn, 1, 0, 0, 0)
+                fire(x, y, "petal", Coleur, 1, ThisWay - GapWider, 3 - SpdDwn, 1, 0, 0, 0)
+                }
+            SpdDwn += 0.2
+            GapWider += 1
+            Coleur -= 1
+            }
+        ThisWay += 72
+        }
+    }
+    
+if (testalarm == 150)
+    {
+    if instance_number(sys_BossMover) &lt;= 0
+        {
+        Mover = instance_create(x, y, sys_BossMover)
+        Mover.Activity = 14
+        }
+    }
+    
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///phasedebug
+if phase == 69
+{
+
+if testalarm &gt;= 0
+    {
+    testalarm -= 1
+    }
+
+
+
+if (testalarm &gt; 0) and (testalarm &lt;= 35)
+    {
+    FireAngle = aim_player(x, y)
+    fire(x, y, "ball", 10, 1, FireAngle, 3, 999, 0, 0, 0)
+    }
+
+    
+if testalarm == 3
+    {
+    if instance_number(sys_BossMover) &lt;= 0
+        {
+        Mover = instance_create(x, y, sys_BossMover)
+        Mover.Activity = 99999
+        }
+    }
+    
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Timer Shenanigans
+if phase &gt; 0
+{
+if testtimer &lt;= 0
+    {
+    testtimer = 0
+    if instance_exists(obj_Gamer)
+        {instance_destroy(obj_Gamer)}
+    }
+    
+else if testtimer &gt; 0
+    {testtimer -= 1}
+}
+
+if keyboard_check_pressed(vk_add)
+    {testtimer += 60}
+    
+if keyboard_check_pressed(vk_subtract)
+    {testtimer -= 60}
 </string>
           </argument>
         </arguments>
@@ -449,18 +721,53 @@ if global.HP &lt;= 0
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Draw HP
+            <string>///Draw Top Statuses
 
+    //Touch these
 BarX1 = 260
-BarX2 = 1020
+BarX2 = 933
 BarY1 = 36
-BarY2 = 46
+BarY2 = 63
 
+TimerTxtX = 996
+TimerTxtY = 38
+TimerCol = c_white
+Timer20s = c_yellow
+Timer10s = c_red
+
+    //Ignore these unless you know what you're doing
+    
 //Back
 draw_healthbar(BarX1, BarY1, BarX2, BarY2, (global.HPIncrement / global.HPMax) * 100, c_black, BackCol, BackCol, 0, true, true)
 
 //Front
 draw_healthbar(BarX1, BarY1, BarX2, BarY2, (global.HP / global.HPMax) * 100, c_black, c_lime, c_lime, 0, false, false)
+
+//Timer Text
+draw_set_valign(fa_top)
+draw_set_halign(fa_right)
+
+draw_set_font(fnt_PressStart2P16)
+bs = floor(string_format((testtimer / 60), 2, 1))
+if testtimer &lt;= (10 * 60)
+    {draw_text_outline(TimerTxtX, TimerTxtY, bs, Timer10s, 3, c_black)}
+else if testtimer &lt;= (20 * 60)
+    {draw_text_outline(TimerTxtX, TimerTxtY, bs, Timer20s, 3, c_black)}
+else
+    {draw_text_outline(TimerTxtX, TimerTxtY, bs, TimerCol, 3, c_black)}
+
+draw_set_font(fnt_PressStart2P8)
+fuckin = string_format((testtimer / 60), 2, 1)
+mygod = string_char_at(fuckin, string_length(fuckin))
+if testtimer &lt;= (10 * 60)
+    {draw_text_outline(TimerTxtX + 25, TimerTxtY + 13, "." + mygod, Timer10s, 2, c_black)}
+else if testtimer &lt;= (20 * 60)
+    {draw_text_outline(TimerTxtX + 25, TimerTxtY + 13, "." + mygod, Timer20s, 2, c_black)}
+else
+    {draw_text_outline(TimerTxtX + 25, TimerTxtY + 13, "." + mygod, TimerCol, 2, c_black)}
+    
+draw_set_font(-1)
+draw_set_color(c_white)
 
 /*
 if (global.HP &gt;= (global.HPMax / 3))
@@ -474,6 +781,112 @@ draw_set_color(c_white)
 //draw_text(64, 200, global.HPIncrement)
 draw_text(64, 300, global.HPDecdec)
 
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_text(120, 180, string(testalarm))
+draw_text(100, 200, y)
+draw_text(100, 220, string(room_height))
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="115">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>phase = 69
+global.HPMax = 2000
+instance_destroy(obj_EnemyFire)
+global.HP = global.HPMax
+testtimer = 99.9 * 60
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="52">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>phase = 4
+global.HPMax = 1700
+instance_destroy(obj_EnemyFire)
+global.HP = global.HPMax
+testalarm = 70
+testtimer = 34.3 * 60
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="51">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>phase = 3
+global.HPMax = 1650
+instance_destroy(obj_EnemyFire)
+global.HP = global.HPMax
+testalarm = 70
+testtimer = 20.6 * 60
 </string>
           </argument>
         </arguments>
@@ -499,7 +912,9 @@ draw_text(64, 300, global.HPDecdec)
             <string>phase = 2
 global.HPMax = 2000
 instance_destroy(obj_EnemyFire)
-global.HP = global.HPMax 
+global.HP = global.HPMax
+testalarm = 70
+testtimer = 30 * 60
 </string>
           </argument>
         </arguments>
@@ -525,7 +940,9 @@ global.HP = global.HPMax
             <string>phase = 1
 global.HPMax = 900
 instance_destroy(obj_EnemyFire)
-global.HP = global.HPMax 
+global.HP = global.HPMax
+testalarm = 70
+testtimer = 26.5 * 60
 </string>
           </argument>
         </arguments>

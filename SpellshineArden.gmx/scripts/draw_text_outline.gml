@@ -11,10 +11,15 @@ var ocolor = argument5;
 var pcolor = draw_get_color();
  
 draw_set_color(ocolor);
-draw_text(xx - osize, yy, text);
-draw_text(xx + osize, yy, text);
-draw_text(xx, yy - osize, text);
-draw_text(xx, yy + osize, text);
+draw_text(xx - osize, yy        , text);
+draw_text(xx + osize, yy        , text);
+draw_text(xx        , yy - osize, text);
+draw_text(xx        , yy + osize, text);
+
+draw_text(xx - osize, yy - osize, text);
+draw_text(xx + osize, yy - osize, text);
+draw_text(xx + osize, yy + osize, text);
+draw_text(xx - osize, yy + osize, text);
  
 draw_set_color(tcolor);
 draw_text(xx, yy, text);
