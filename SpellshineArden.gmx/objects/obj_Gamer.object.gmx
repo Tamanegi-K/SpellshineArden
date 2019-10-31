@@ -33,8 +33,8 @@ iFramesMax = 120
 
 //Movement
 SpdNormal = 3.5
-SpdFocus = 1.7
-GamerSpd = 0
+SpdFocus = 1.5
+GamerSpd = 0 //DON'T TOUCH THIS
 
 //Tap Fire Threshold
 FireIn = 5

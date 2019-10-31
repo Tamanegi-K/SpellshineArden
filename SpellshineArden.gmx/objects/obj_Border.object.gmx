@@ -147,10 +147,10 @@ draw_text(15, 450,
          QWE - Cheat Cloak
            F5 - Restart
 
+Number Keys for Patterns
              1 - Pattern 1
              2 - Pattern 2
-             3 - Pattern 3
-             4 - Pattern 4"
+             etc."
 )
 draw_set_halign(fa_left)
 </string>
