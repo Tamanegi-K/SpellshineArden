@@ -9,7 +9,7 @@ if (place_meeting(x, y + vspeed, obujectu)) {
 }
 
 if (place_meeting(x + hspeed, y, obujectu)) { 
-    direction = 180-direction;
+    direction = 180 - direction;
     hspeed *= 1;
     vspeed *= -1;
 }

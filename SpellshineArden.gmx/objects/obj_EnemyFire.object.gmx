@@ -26,8 +26,8 @@
           <argument>
             <kind>1</kind>
             <string>///Create Variables
-direction = 270
 
+//Extra Speed Stuff
 ExtraSpeedSettings = false
 SpeedTime = 0
 SpeedLoop = 0
@@ -42,13 +42,29 @@ SpeedBefore = speed
 SpeedSwitch = 0 //0 - init, 1 - new, 2 - append
 
 
+//Colour/Sprite Assignment
 image_speed = 0 //do not touch
+ColourLimit = 0
 
-Curve = 0
-CurveTimer = 0
 
+//Extra Curve Stuff
+ExtraCurveSettings = false
+CurveTime = 0
+CurveLoop = 0
+CurveType = 0 //speedcurve: 0 - instant, 1 - constant, 2 - lerp
+direction = 270
+CurveNew = 0
+CurveAppend = 0
+
+CurveStep = 0
+CurveSwitch = 0 //0 - init, 1 - new, 2 - append
+
+
+//Bounces
 Bounces = 0
 
+
+//Depths
 DepthPriority = 0
 </string>
           </argument>
@@ -97,23 +113,67 @@ DepthPriority = 0
             <kind>1</kind>
             <string>///Bullet Movement
 
-//Sprite Setting
-IWokeUpLikeThis = sprite_get_name(sprite_index)
-if (IWokeUpLikeThis != "spr_ball") and (IWokeUpLikeThis != "spr_donut") and (IWokeUpLikeThis != "spr_orb") and (IWokeUpLikeThis != "spr_pew") and (IWokeUpLikeThis != "spr_sphere") and (IWokeUpLikeThis != "spr_titan")
+//Curving
+if ExtraCurveSettings == true
     {
-    image_angle = direction
-    }
-
-//Bouncing
-if Curve != 0
-    {
-    if CurveTimer &gt; 0
+    //Instant Direction Change
+    if CurveType == 0
         {
-        direction += Curve
-        CurveTimer -= 1
+        if (CurveStep &lt;= 0) and (CurveLoop &gt; 0)
+            {
+            if CurveSwitch == 1
+                {
+                direction = CurveNew
+                CurveSwitch = 2
+                }
+                
+            else
+                {
+                direction = CurveAppend
+                CurveSwitch = 1
+                }
+                
+            CurveLoop -= 1
+            CurveStep = CurveTime
+            }
+            
+        else
+            {CurveStep -= 1}
+        }
+    
+    //Gradual Direction Change
+    else if CurveType == 1
+        {
+        if (CurveStep &lt;= 0) and (CurveLoop &gt; 0)
+            {
+            if CurveSwitch == 1
+                {CurveSwitch = 2}
+                
+            else
+                {CurveSwitch = 1}
+                
+            CurveLoop -= 1
+            CurveStep = CurveTime
+            }
+            
+        else if (CurveLoop &gt; 0)
+            {
+            if CurveSwitch == 1
+                {direction += CurveAppend}
+                
+            else
+                {direction += CurveNew}
+            
+            CurveStep -= 1
+            }
         }
     }
     
+/*else
+    {direction = CurveInit}*/
+    
+// // // // // // // // // // // // //
+
 //Speed (and the wacky stuff)
 if ExtraSpeedSettings == true
     {
@@ -167,7 +227,7 @@ if ExtraSpeedSettings == true
             SpeedStep = SpeedTime
             }
             
-        else
+        else if (SpeedLoop &gt; 0)
             {
             SpeedStep -= 1
             speed += (SpeedGoal - SpeedBefore) / SpeedTime
@@ -318,6 +378,59 @@ instance_destroy(other)
     bouncespeckix(other)
     //move_bounce_all(false)
     Bounces -= 1
+    }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Sprite Setting
+
+IWokeUpLikeThis = sprite_get_name(sprite_index)
+//draw_text(x + 10, y, speed)
+
+    //If a sprite doesn't need rotations (round/circular bullets)
+if (IWokeUpLikeThis != "spr_ball") and (IWokeUpLikeThis != "spr_donut") and (IWokeUpLikeThis != "spr_glower") and (IWokeUpLikeThis != "spr_orb") and (IWokeUpLikeThis != "spr_pew") and (IWokeUpLikeThis != "spr_sphere") and (IWokeUpLikeThis != "spr_titan")
+    {
+    image_angle = direction
+    }
+    
+    //Glow/Blending ones
+if (IWokeUpLikeThis == "spr_glower") or (IWokeUpLikeThis == "spr_titan")
+    {
+    //draw_set_blend_mode(bm_add)
+    draw_set_blend_mode_ext(bm_src_alpha, bm_one);
+    draw_self()
+    draw_set_blend_mode(bm_normal)
+    }
+else
+    {draw_self()}
+    
+    //Titan Stuff
+if ((IWokeUpLikeThis == "spr_titan"))
+    {
+    image_xscale = 1.23
+    image_yscale = 1.23 //NOTE: remove both after sprite has been replaced
+    
+    if (image_index &gt;= ColourLimit)
+        {image_index = ColourLimit - 7}
     }
 </string>
           </argument>

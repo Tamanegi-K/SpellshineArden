@@ -119,16 +119,16 @@ if (testalarm == 35) or (testalarm == 85)
     FireAngle = aim_player(x, y)
     repeat (50)
         {
-        fire(x, y, "talisman", 7, 0, FireAngle, 0, 0, spdline(15, 1, 0, 7, 1.4, 0), 0, 0, -1, 0)
+        fire(x, y, "talisman", 7, 0, FireAngle, spdline(15, 1, 0, 7, 1.4, 0), 0, -1, 0)
         FireAngle += 7.2
         }
         
     PewSpeed = 1.6
     repeat (5)
         {
-        fire(x, y, "shard", 10, 1, FireAngle, 0, 0, PewSpeed, 0, 0, -1, 0)
-        fire(x, y, "shard", 10, 1, FireAngle + 30, 0, 0, PewSpeed, 0, 0, -1, 0)
-        fire(x, y, "shard", 10, 1, FireAngle - 30, 0, 0, PewSpeed, 0, 0, -1, 0)
+        fire(x, y, "shard", 10, 1, FireAngle, PewSpeed, 0, -1, 0)
+        fire(x, y, "shard", 10, 1, FireAngle + 30, PewSpeed, 0, -1, 0)
+        fire(x, y, "shard", 10, 1, FireAngle - 30, PewSpeed, 0, -1, 0)
         PewSpeed += 0.5
         }
     }
@@ -140,7 +140,7 @@ else if (testalarm == 20) or (testalarm == 70)
         {
         repeat(3)            
             {
-            fire(x, y, "talisman", 0, 0, FireAngle, 0, 0, spdline(16, 1, 0, 6.5, 1.4, 0), 0, 0, -1, 0)
+            fire(x, y, "talisman", 0, 0, FireAngle, spdline(16, 1, 0, 6.5, 1.4, 0), 0, -1, 0)
             FireAngle += 3
             }
         FireAngle += 9
@@ -207,7 +207,7 @@ if testalarm == 2
         else
             {intensity = 0}
               
-        fire(x, y, choose("ball", "orb", "petal", "pew", "shard", "talisman"), irandom_range(0, 11), random(2), random(360), 0, 0, random_range(1 + intensity, 2 + intensity), 0, 0, -1, 0)
+        fire(x, y, choose("ball", "kunai", "orb", "petal", "shard", "slug", "talisman"), irandom_range(0, 11), random(2), random(360), random_range(1 + intensity, 2 + intensity), 0, -1, 0)
         }
 
     if instance_number(sys_BossMover) &lt;= 0
@@ -260,10 +260,13 @@ else
 
 if (testalarm &gt; 120) and (Spinner &gt;= testalarm) 
     {
-    fire(x, y, "shard", 6, 2,   0 + RandoStart + AngleInc, 0, 0, spdline(10, 1, 1, 12.8, 2.3, 2.3), 0, 0, -1, 0)
-    fire(x, y, "shard", 6, 2, 180 + RandoStart + AngleInc, 0, 0, spdline(10, 1, 1, 12.8, 2.3, 2.3), 0, 0, -1, 0)
+    fire(x, y, "shard", 8, 2,   0 + RandoStart + AngleInc, spdline(10, 1, 1, 12.8, 2.3, 2.3), 0, -1, 0)
+    fire(x, y, "shard", 8, 2, 180 + RandoStart + AngleInc, spdline(10, 1, 1, 12.8, 2.3, 2.3), 0, -1, 0)
     repeat (floor(1 + (AngleVel / 10)))
-        {fire(x, y, "pew", 7, 0, random(360), 0, 0, spdline(5, 1, 1, 16, 1.6, 1.6), 0, 0, -1, 0)}
+        {
+        fire(x, y, "pew", 7, 0, RandoStart + (AngleInc * 0.75) + 0  , spdline(5, 1, 1, 16, 1.6, 1.6), 0, -1, 0)
+        fire(x, y, "pew", 7, 0, RandoStart + (AngleInc * 0.75) + 180, spdline(5, 1, 1, 16, 1.6, 1.6), 0, -1, 0)
+        }
     
     if Turn == "ACW"
         {AngleInc += 4 + AngleVel}
@@ -272,6 +275,16 @@ if (testalarm &gt; 120) and (Spinner &gt;= testalarm)
         
     Spinner = testalarm - 2
     AngleVel += 0.33
+    }
+    
+if (testalarm &lt; 125) and (testalarm &gt; 115) and (testalarm mod 2 == 0)
+    {
+    FireAngle = aim_player(x, y) - 4
+    repeat(45)
+        {
+        fire(x, y, "slug", 7, 2, FireAngle, spdline(20, 2, 0, 3, 1, 9), 0, -1, 0)
+        FireAngle += 8
+        }
     }
     
 if (testalarm == 120)
@@ -283,7 +296,7 @@ if (testalarm == 120)
         {
         repeat (42)
             {
-            fire(x, y, "petal", 8, 1, FireAngle, 12.7, 0.45, spdline(20, 1, 2, SpeedDown * 5, SpeedDown, SpeedDown), 0, 0, -1, 0)
+            fire(x, y, "petal", 6, 2, crvline(40, 1, 1, FireAngle, 9, 0), spdline(20, 1, 2, SpeedDown * 6.5, SpeedDown, SpeedDown), 0, -1, 0)
             if Turn == "ACW"
                 {FireAngle += 8.571}
             else if Turn == "CW"
@@ -343,6 +356,7 @@ if (testalarm == 59) or (testalarm == 128) or (testalarm == 197) or (testalarm =
     {
     Curvature = choose(10, -10)
     ThisWay = choose(random_range(142, 262), 22)
+    WhichDir = choose(5.2, -5.2)
     repeat(5)
         {
         SpdDwn = 0.2
@@ -350,12 +364,12 @@ if (testalarm == 59) or (testalarm == 128) or (testalarm == 197) or (testalarm =
         Coleur = 11
         PewChange = 0
         
-        fire(x, y, "petal", 0, 2, ThisWay, Curvature, 0.5, 3, 1, 0, -1, 0)
-        fire(x, y, "donut", 1, 0, ThisWay, Curvature, 0.5, 2, 1, 0, -1, 0)
+        fire(x, y, "petal", 0, 2, crvline(18, 1, 1, ThisWay, WhichDir, 0), 3, 1, -1, 0)
+        fire(x, y, "donut", 1, 0, crvline(18, 1, 1, ThisWay, WhichDir, 0), 2, 1, -1, 0)
         
         repeat(7)
             {
-            fire(x, y,  "pew" , 2, 0, ThisWay, Curvature, 0.5, 2 - PewChange, 1, 0, -1, 0)
+            fire(x, y,  "pew" , 2, 0, crvline(18, 1, 1, ThisWay, WhichDir, 0), 2 - PewChange, 1, -1, 0)
             PewChange += 0.13
             }
             
@@ -363,8 +377,8 @@ if (testalarm == 59) or (testalarm == 128) or (testalarm == 197) or (testalarm =
             {
             repeat(2)
                 {
-                fire(x, y, "petal", Coleur, 1, ThisWay + GapWider, Curvature, 0.5, 3 - SpdDwn, 1, 0, -1, 0)
-                fire(x, y, "petal", Coleur, 1, ThisWay - GapWider, Curvature, 0.5, 3 - SpdDwn, 1, 0, -1, 0)
+                fire(x, y, "petal", Coleur, 1, crvline(18, 1, 1, ThisWay + GapWider, WhichDir, 0), 3 - SpdDwn, 1, -1, 0)
+                fire(x, y, "petal", Coleur, 1, crvline(18, 1, 1, ThisWay - GapWider, WhichDir, 0), 3 - SpdDwn, 1, -1, 0)
                 }
             SpdDwn += 0.2
             GapWider += 1
@@ -424,14 +438,14 @@ if (testalarm &lt;= 20) and (testalarm &gt;= 5) and ((testalarm mod 2) == 0)
         {
         repeat (20)
             {
-            fire(x, y, "talisman", 1, 0, TickTock + Prata, 0, 0, spdline(14, 1, 0, 8, 1.3, 0), 0, 0, -1, 0)
+            fire(x, y, "talisman", 1, 0, TickTock + Prata, spdline(14, 1, 0, 8, 1.3, 0), 0, -1, 0)
             Prata += 18
             }
         }
         
     repeat (16) //ga- I mean, curve shots
         {
-        fire(x, y, "petal", Qock, 0, TickTock + Prata, Switch, 0.4, spdline(15, 50, 1, 7.5, 2.5, 4), 0, 0, -1, 0)
+        fire(x, y, "petal", Qock, 0, crvline(180, 1, 1, TickTock + Prata, Switch, 0), spdline(15, 50, 1, 7.5, 2.5, 4), 0, -1, 0)
         Prata += 22.5
         }
     }
@@ -495,9 +509,9 @@ if (testalarm &gt;= 45) and ((testalarm mod 12) == 0) and (BeginFire == 1)
     Diff = 0
     repeat(12)
         {
-        fire(x, y, "pew", Col, 0, Angleh + 0, 0, 0, spdline(50, 1, 2, 8.6 - (Diff * 2), 0.2, 4.6 - Diff), 0, 0, 0, 0)
-        fire(x, y, "orb", Col, 0, Angleh + 120, 0, 0, spdline(50, 1, 2, 8.6 - (Diff * 2), 0.2, 4.6 - Diff), 0, 0, 0, 0)
-        fire(x, y, "petal", Col, 0, Angleh + 240, 0, 0, spdline(50, 1, 2, 8.6 - (Diff * 2), 0.2, 4.6 - Diff), 0, 0, 0, 0)
+        fire(x, y, "pew", Col, 0, Angleh + 0, spdline(50, 1, 2, 8.6 - (Diff * 2), 0.2, 4.6 - Diff), 0, -1, 0)
+        fire(x, y, "orb", Col, 0, Angleh + 120, spdline(50, 1, 2, 8.6 - (Diff * 2), 0.2, 4.6 - Diff), 0, -1, 0)
+        fire(x, y, "petal", Col, 0, Angleh + 240,  spdline(50, 1, 2, 8.6 - (Diff * 2), 0.2, 4.6 - Diff), 0, -1, 0)
         Col += 1
         Diff += 0.25
         Angleh += 9
@@ -515,12 +529,12 @@ if (testalarm &gt;= 45) and ((testalarm mod 43) == 0) and (BeginFire == 2)
         Pang = aim_player(x, y) + Papang
         repeat (12)
             {
-            fire(x, y, Shape[n], Col, 0, Pang, 0, 0, spdline(20, 1, 2, 5.2 - (Slowo * 2), 0.5, 7.2 - Slowo), 0, 0, 0, 0)
+            fire(x, y, Shape[n], Col, 0, Pang, spdline(20, 1, 2, 5.2 - (Slowo * 2), 0.5, 7.2 - Slowo), 0, -1, 0)
             
             for (i = 0; i &lt;= Col; i += 1)
-                {fire(x, y, Shape[n], Col, 12 - i, Pang - (i * 5.25), 0, 0, spdline(20, 1, 2, 5.2 - (Slowo * 2), 0.5, 7.2 - Slowo), 0, 0, 0, 0)}
+                {fire(x, y, Shape[n], Col, 12 - i, Pang - (i * 5.25), spdline(20, 1, 2, 5.2 - (Slowo * 2), 0.5, 7.2 - Slowo), 0, -1, 0)}
             for (i = 0; i &lt;= Col; i += 1)
-                {fire(x, y, Shape[n], Col, 12 - i, Pang + (i * 5.25), 0, 0, spdline(20, 1, 2, 5.2 - (Slowo * 2), 0.5, 7.2 - Slowo), 0, 0, 0, 0)}
+                {fire(x, y, Shape[n], Col, 12 - i, Pang + (i * 5.25), spdline(20, 1, 2, 5.2 - (Slowo * 2), 0.5, 7.2 - Slowo), 0, -1, 0)}
     
             Col += 1
             Slowo += 0.3
@@ -539,9 +553,9 @@ if (testalarm &gt;= 45) and ((testalarm mod 12) == 0) and (BeginFire == 3)
     Diff = 0
     repeat(12)
         {
-        fire(x, y, "pew", Col, 0, Angleh + 0, 0, 0, spdline(50, 1, 2, 8.6 - (Diff * 2), 0.2, 4.6 - Diff), 0, 0, 0, 0)
-        fire(x, y, "orb", Col, 0, Angleh + 120, 0, 0, spdline(50, 1, 2, 8.6 - (Diff * 2), 0.2, 4.6 - Diff), 0, 0, 0, 0)
-        fire(x, y, "petal", Col, 0, Angleh + 240, 0, 0, spdline(50, 1, 2, 8.6 - (Diff * 2), 0.2, 4.6 - Diff), 0, 0, 0, 0)
+        fire(x, y, "pew", Col, 0, Angleh + 0, spdline(50, 1, 2, 8.6 - (Diff * 2), 0.2, 4.6 - Diff), 0, -1, 0)
+        fire(x, y, "orb", Col, 0, Angleh + 120, spdline(50, 1, 2, 8.6 - (Diff * 2), 0.2, 4.6 - Diff), 0, -1, 0)
+        fire(x, y, "petal", Col, 0, Angleh + 240, spdline(50, 1, 2, 8.6 - (Diff * 2), 0.2, 4.6 - Diff), 0, -1, 0)
         Col += 1
         Diff += 0.25
         Angleh -= 9
@@ -549,16 +563,18 @@ if (testalarm &gt;= 45) and ((testalarm mod 12) == 0) and (BeginFire == 3)
     Angleh -= 7
     }
     
-if (testalarm &gt;= 45) and ((testalarm mod 3) == 0) and (BeginFire == 4)
+if (testalarm &gt;= 45) and ((testalarm mod 4) == 0) and (BeginFire == 4)
     {
     Pang = 0
-    repeat(6)
+    repeat(4)
         {
         if Col &gt; 11
             {Col = 0}  
             
-        fire(x, y, Shape[n], Col, 0, Papang + Pang, 0, 0, spdline(33, 1, 2, 6.2, 0.5, 3.5), 0, 0, 0, 0)
-        fire(x, y, Shape[n], Col, 0, Papang + Pang + 180, 0, 0, spdline(33, 1, 2, 6.2, 0.5, 3.5), 0, 0, 0, 0)
+        fire(x, y, Shape[n], Col, 0, crvline(30, 1, 1, Papang + Pang +   0, n, 0), spdline(33, 1, 2, 6.2 + (n / 10), 0.5, 3.5 + (n * 2 / 10)), 0, -1, 0)
+        fire(x, y, Shape[n], Col, 0, crvline(30, 1, 1, Papang + Pang + 90, n, 0), spdline(33, 1, 2, 6.2 + (n / 10), 0.5, 3.5 + (n * 2 / 10)), 0, -1, 0)
+        fire(x, y, Shape[n], Col, 0, crvline(30, 1, 1, Papang + Pang + 180, n, 0), spdline(33, 1, 2, 6.2 + (n / 10), 0.5, 3.5 + (n * 2 / 10)), 0, -1, 0)
+        fire(x, y, Shape[n], Col, 0, crvline(30, 1, 1, Papang + Pang + 270, n, 0), spdline(33, 1, 2, 6.2 + (n / 10), 0.5, 3.5 + (n * 2 / 10)), 0, -1, 0)
         
         if n &gt;= 2
             {n = 0}
@@ -615,6 +631,152 @@ if (testalarm == 1)
         <arguments>
           <argument>
             <kind>1</kind>
+            <string>///a part of phase 6 I found interesting
+/*if (phase == 6.5) and (image_alpha == 1)
+{
+
+if testalarm &gt;= 0
+    {testalarm -= 1}
+
+else
+    {
+    Angleh = random(360)
+    Papang = 0
+    testalarm = 295
+    }
+
+if (testalarm &gt;= 125) and ((testalarm mod 3) == 0) and (BeginFire == 4)
+    {
+    Pang = 0
+    repeat(6)
+        {
+        if Col &gt; 11
+            {Col = 0}  
+            
+        if n == 2
+            {
+            fire(x, y, Shape[n], Col, 0, Papang + Pang      , n, n, spdline(33, 1, 2, 6.2, 0.5, 3.5), 0, 0, 0, 0)
+            fire(x, y, Shape[n], Col, 0, Papang + Pang + 120, n, n, spdline(33, 1, 2, 6.2, 0.5, 3.5), 0, 0, 0, 0)
+            fire(x, y, Shape[n], Col, 0, Papang + Pang + 240, n, n, spdline(33, 1, 2, 6.2, 0.5, 3.5), 0, 0, 0, 0)
+            }
+        
+        if n &gt;= 2
+            {n = 0}
+        else
+            {n += 1}
+        
+        if Ghi &gt;= 9
+            {
+            Ghi = 0
+            Col += 1
+            }
+        else
+            {Ghi += 1}
+            
+        Pang -= 14.3
+        }
+    Papang -= 36
+    }
+    
+if (testalarm == 1)
+    {
+    if instance_number(sys_BossMover) &lt;= 0
+        {
+        Mover = instance_create(x, y, sys_BossMover)
+        Mover.Activity = 11
+        
+        Shape[2] = "kunai"
+        n = 0
+        Col = 0
+        BeginFire = 4
+        }
+    }
+    
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///phase7
+if (phase == 7) and (image_alpha == 1)
+{
+
+if testalarm &gt;= 0
+    {testalarm -= 1}
+
+else
+    {
+    testalarm = 800
+    }
+
+if (BeginFire &gt; 0) and ((testalarm mod 2 == 0))
+    {
+    for (n = 0; n &lt;= 4; n += 2)
+        {fire(x, y, "glower", 9, 0, crvline(48, 1, 1, FireAngle + (n * 60), 0, 4.4), spdline(50, 1, 1, -8, 3, 0), 0, -1, 0)}
+
+    for (n = 1; n &lt;= 5; n += 2)
+        {fire(x, y, "glower", 11, 0, crvline(48, 1, 1, FireAngle + (n * 60) + Append, 0, 4.4), spdline(50, 1, 1, -8, 3, 0), 0, -1, 0)}
+        
+    FireAngle += 6.6
+    Append += 0.3
+    }
+    
+if (BeginFire &gt; 0) and ((testalarm mod 2.5 == 0))
+    {
+    if BeginFire &gt;= 7
+        {BeginFire = 1}
+    else
+        {BeginFire += 1}
+    }
+    
+if (testalarm == 1)
+    {
+    if instance_number(sys_BossMover) &lt;= 0
+        {
+        Mover = instance_create(x, y, sys_BossMover)
+        Mover.Activity = 2
+        }
+    
+    BeginFire += 1
+    }
+    
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
             <string>///phasedebug
 if (phase == 69) and (image_alpha == 1)
 {
@@ -626,15 +788,27 @@ if testalarm &gt;= 0
 
 
 
-if (testalarm &gt; 0) and (testalarm &lt;= 35)
+if (testalarm == 5) //and (testalarm &lt;= 1)
     {
-    FireAngle = aim_player(x, y)
-    fire(x, y, "ball", 10, 1, FireAngle, 0, 0, spdline(10, 160, 2, 7, 0.2, 11), 999, 0, 0, 0)
+    FireAngle = aim_player(x, y)//random(360)
+    fire(x, y, "titan", 3, 2, FireAngle /*crvline(25, 10, 1, FireAngle + (5.2 * 12.5), 5.2, -5.2)*/, 2, 5, -1, 0)
+    
+    /*repeat(60)
+        {
+        fire(x, y, "titan", 3/*irandom_range(0, 7), 2, FireAngle, spdline(25, 2, 1, 6.1, 0.5, 5), 0, -1, 0)
+        fire(x, y, "glower", 6, 1, FireAngle, spdline(25, 2, 1, 6.1, 0.5, 4.4), 0, -1, 0)
+        fire(x, y, "glower", 6, 1, FireAngle, spdline(25, 2, 1, 6.1, 0.5, 3.8), 0, -1, 0)
+        fire(x, y, "glower", 6, 1, FireAngle, spdline(25, 2, 1, 6.1, 0.5, 3.2), 0, -1, 0)
+        fire(x, y, "glower", 6, 1, FireAngle, spdline(25, 2, 1, 6.1, 0.5, 2.6), 0, -1, 0)
+        FireAngle += 6
+        }*/
     }
 
     
 if testalarm == 3
     {
+    testalarm = 150
+    
     if instance_number(sys_BossMover) &lt;= 0
         {
         Mover = instance_create(x, y, sys_BossMover)
@@ -1087,6 +1261,41 @@ global.HP = global.HPMax
 image_alpha = 1
 
 testtimer = 99.9 * 60
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="55">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>phase = 7
+global.HPMax = 2000
+instance_destroy(obj_EnemyFire)
+global.HP = global.HPMax
+image_alpha = 1
+
+testalarm = 70
+testtimer = 26.5 * 60
+
+FireAngle = aim_player(x, y)
+
+BeginFire = 0
+Append = 0
 </string>
           </argument>
         </arguments>

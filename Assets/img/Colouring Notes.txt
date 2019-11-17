@@ -12,3 +12,6 @@
        F	- Fuchsia
        K	- Key
       W	- White
+
+159 for black alpha
+96 for glow alpha

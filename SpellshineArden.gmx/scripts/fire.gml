@@ -1,4 +1,4 @@
-///Usage: fire(x, y, type, colour, depth, angle, curve, rotations, speed, bounce, traveltype, lifetime, deathaction)
+///Usage: fire(x, y, type, colour, depth, angle, speed, bounce, lifetime, deathaction)
 
 var          xx = argument0; //x coordinate
 var          yy = argument1; //y coordinate
@@ -6,13 +6,10 @@ var        type = argument2; //bullet shape/type
 var      colour = argument3; //bullet colour (0 to 13, ROYLGTCBIPMFBW, RYGCIMBW)
 var      ddepth = argument4; //bullet depth (appears on other bullets if higher)
 var       angle = argument5; //bullet direction
-var      dcurve = argument6; //bullet angle increment per frame
-var    rotation = argument7; //no. of angle rotations if curve exists (anything less than 0 gives 1)
-var         spd = argument8; //bullet speed (maybe change to topspeed/minspeed?)
-var      bounce = argument9; //no. of bounces on wall
-var      travel = argument10; //bullet travel type
-var    lifetime = argument11; //bullet life before destroying itself without touching border (in frames, -1 for infinite)
-var deathaction = argument12; //bullet's action after death
+var         spd = argument6; //bullet speed (maybe change to topspeed/minspeed?)
+var      bounce = argument7; //no. of bounces on wall
+var    lifetime = argument8; //bullet life before destroying itself without touching border (in frames, -1 for infinite)
+var deathaction = argument9; //bullet's action after death
 
 /* Travel Types                    |  Death Action
 0 - constant speed                 | 0 - nothing
@@ -26,16 +23,52 @@ var deathaction = argument12; //bullet's action after death
 
 Thing = instance_create(xx, yy, obj_EnemyFire)
 Thing.sprite_index = asset_get_index("spr_" + type)
-Thing.image_index = colour
+
+
+if type == "titan"
+    {
+    Thing.image_speed = 0.2
+    Thing.ColourLimit = (8 * (colour + 1)) - 1
+    Thing.image_index = Thing.ColourLimit - 7
+    }
+else
+    {
+    Thing.image_index = colour
+    Thing.image_speed = 0
+    }
+
+    
 Thing.direction = angle
 
-Thing.Curve = dcurve
+
+/*Thing.Curve = dcurve
 if rotation <= 0
     {rotation = 1}
 Thing.CurveTimer = (360 / abs(dcurve)) * rotation
 if !is_real(Thing.CurveTimer)
-    {Thing.CurveTimer = 0}
+    {Thing.CurveTimer = 0}  */
 
+if is_array(angle)
+    {
+    Thing.ExtraCurveSettings = true
+    Thing.CurveTime = angle[0]
+    Thing.CurveStep = angle[0]
+    Thing.CurveLoop = angle[1]
+    Thing.CurveType = angle[2]
+    
+    Thing.direction = angle[3]
+    Thing.CurveNew = angle[4]
+    Thing.CurveAppend = angle[5]
+    Thing.CurveGoal = angle[4]
+    Thing.CurveBefore = angle[3]
+    }
+else
+    {
+    Thing.ExtraCurveSettings = false
+    Thing.CurveInit = angle
+    }
+
+    
 if is_array(spd)
     {
     Thing.ExtraSpeedSettings = true
@@ -55,6 +88,7 @@ else
     Thing.ExtraSpeedSettings = false
     Thing.SpeedInit = spd
     }
+    
     
 Thing.Bounces = bounce
 Thing.DepthPriority = ddepth

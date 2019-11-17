@@ -20,7 +20,12 @@ else
 if !is_real(type)
     {speedlines[2] = 0}
 else
-    {speedlines[2] = type}    
+    {
+    if type > 2
+        {speedlines[2] = 0}
+    else
+        {speedlines[2] = type}
+    } 
 
 if !is_real(initspd)
     {speedlines[3] = 0}
