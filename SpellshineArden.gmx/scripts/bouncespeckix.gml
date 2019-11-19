@@ -7,10 +7,10 @@ if (place_meeting(x, y + vspeed, obujectu)) {
     hspeed *= -1;
     vspeed *= -1;
 
-    if x > obujectu.x
+    /*if x > obujectu.x
         {x -= 1.01}
     else
-        {x += 1.01}
+        {x += 1.01}*/
 }
 
 if (place_meeting(x + hspeed, y, obujectu)) { 
@@ -18,10 +18,10 @@ if (place_meeting(x + hspeed, y, obujectu)) {
     hspeed *= 1;
     vspeed *= -1;
     
-    if y > obujectu.y
+    /*if y > obujectu.y
         {y -= 1.01}
     else
-        {y += 1.01}
+        {y += 1.01}*/
 }
 
 //Credit: Speckix on reddit
