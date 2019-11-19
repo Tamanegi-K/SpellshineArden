@@ -6,6 +6,7 @@ var    type = argument2; //curvecurve: 0 - instant, 1 - constant
 var initdir = argument3; //initial direction
 var  newdir = argument4; //dierction increment per frame
 var xtradir = argument5; //direction increment per frame after newdir (NOTE: If change = 0, this variable will be ignored)
+//cont = continue own direction, aimp = aim player, revr = reverse direction
 
 if !is_real(time)
     {curvelines[0] = 0}
@@ -32,12 +33,16 @@ if !is_real(initdir)
 else
     {curvelines[3] = initdir}
     
-if !is_real(newdir)
+if (newdir ==  "cont") or (newdir == "aimp") or (newdir == "revr")
+    {curvelines[4] = newdir}
+else if !is_real(newdir)
     {curvelines[4] = 0}
 else
     {curvelines[4] = newdir}
-    
-if !is_real(xtradir)
+
+if (xtradir ==  "cont") or (xtradir == "aimp") or (xtradir == "revr")
+    {curvelines[5] = xtradir}    
+else if !is_real(xtradir)
     {curvelines[5] = 0}
 else
     {curvelines[5] = xtradir}

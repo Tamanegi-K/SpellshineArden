@@ -509,9 +509,9 @@ if (testalarm &gt;= 45) and ((testalarm mod 12) == 0) and (BeginFire == 1)
     Diff = 0
     repeat(12)
         {
-        fire(x, y, "pew", Col, 0, Angleh + 0, spdline(50, 1, 2, 8.6 - (Diff * 2), 0.2, 4.6 - Diff), 0, -1, 0)
-        fire(x, y, "orb", Col, 0, Angleh + 120, spdline(50, 1, 2, 8.6 - (Diff * 2), 0.2, 4.6 - Diff), 0, -1, 0)
-        fire(x, y, "petal", Col, 0, Angleh + 240,  spdline(50, 1, 2, 8.6 - (Diff * 2), 0.2, 4.6 - Diff), 0, -1, 0)
+        fire(x, y, "pew", Col, 0, Angleh + 0, spdline(50, 2, 2, 8.6 - (Diff * 2), 0.2, 4.6 - Diff), 0, -1, 0)
+        fire(x, y, "orb", Col, 0, Angleh + 120, spdline(50, 2, 2, 8.6 - (Diff * 2), 0.2, 4.6 - Diff), 0, -1, 0)
+        fire(x, y, "petal", Col, 0, Angleh + 240,  spdline(50, 2, 2, 8.6 - (Diff * 2), 0.2, 4.6 - Diff), 0, -1, 0)
         Col += 1
         Diff += 0.25
         Angleh += 9
@@ -529,12 +529,12 @@ if (testalarm &gt;= 45) and ((testalarm mod 43) == 0) and (BeginFire == 2)
         Pang = aim_player(x, y) + Papang
         repeat (12)
             {
-            fire(x, y, Shape[n], Col, 0, Pang, spdline(20, 1, 2, 5.2 - (Slowo * 2), 0.5, 7.2 - Slowo), 0, -1, 0)
+            fire(x, y, Shape[n], Col, 0, Pang, spdline(20, 2, 2, 5.2 - (Slowo * 2), 0.5, 7.2 - Slowo), 0, -1, 0)
             
             for (i = 0; i &lt;= Col; i += 1)
-                {fire(x, y, Shape[n], Col, 12 - i, Pang - (i * 5.25), spdline(20, 1, 2, 5.2 - (Slowo * 2), 0.5, 7.2 - Slowo), 0, -1, 0)}
+                {fire(x, y, Shape[n], Col, 12 - i, Pang - (i * 5.25), spdline(20, 2, 2, 5.2 - (Slowo * 2), 0.5, 7.2 - Slowo), 0, -1, 0)}
             for (i = 0; i &lt;= Col; i += 1)
-                {fire(x, y, Shape[n], Col, 12 - i, Pang + (i * 5.25), spdline(20, 1, 2, 5.2 - (Slowo * 2), 0.5, 7.2 - Slowo), 0, -1, 0)}
+                {fire(x, y, Shape[n], Col, 12 - i, Pang + (i * 5.25), spdline(20, 2, 2, 5.2 - (Slowo * 2), 0.5, 7.2 - Slowo), 0, -1, 0)}
     
             Col += 1
             Slowo += 0.3
@@ -553,9 +553,9 @@ if (testalarm &gt;= 45) and ((testalarm mod 12) == 0) and (BeginFire == 3)
     Diff = 0
     repeat(12)
         {
-        fire(x, y, "pew", Col, 0, Angleh + 0, spdline(50, 1, 2, 8.6 - (Diff * 2), 0.2, 4.6 - Diff), 0, -1, 0)
-        fire(x, y, "orb", Col, 0, Angleh + 120, spdline(50, 1, 2, 8.6 - (Diff * 2), 0.2, 4.6 - Diff), 0, -1, 0)
-        fire(x, y, "petal", Col, 0, Angleh + 240, spdline(50, 1, 2, 8.6 - (Diff * 2), 0.2, 4.6 - Diff), 0, -1, 0)
+        fire(x, y, "pew", Col, 0, Angleh + 0, spdline(50, 2, 2, 8.6 - (Diff * 2), 0.2, 4.6 - Diff), 0, -1, 0)
+        fire(x, y, "orb", Col, 0, Angleh + 120, spdline(50, 2, 2, 8.6 - (Diff * 2), 0.2, 4.6 - Diff), 0, -1, 0)
+        fire(x, y, "petal", Col, 0, Angleh + 240, spdline(50, 2, 2, 8.6 - (Diff * 2), 0.2, 4.6 - Diff), 0, -1, 0)
         Col += 1
         Diff += 0.25
         Angleh -= 9
@@ -571,10 +571,10 @@ if (testalarm &gt;= 45) and ((testalarm mod 4) == 0) and (BeginFire == 4)
         if Col &gt; 11
             {Col = 0}  
             
-        fire(x, y, Shape[n], Col, 0, crvline(30, 1, 1, Papang + Pang +   0, n, 0), spdline(33, 1, 2, 6.2 + (n / 10), 0.5, 3.5 + (n * 2 / 10)), 0, -1, 0)
-        fire(x, y, Shape[n], Col, 0, crvline(30, 1, 1, Papang + Pang + 90, n, 0), spdline(33, 1, 2, 6.2 + (n / 10), 0.5, 3.5 + (n * 2 / 10)), 0, -1, 0)
-        fire(x, y, Shape[n], Col, 0, crvline(30, 1, 1, Papang + Pang + 180, n, 0), spdline(33, 1, 2, 6.2 + (n / 10), 0.5, 3.5 + (n * 2 / 10)), 0, -1, 0)
-        fire(x, y, Shape[n], Col, 0, crvline(30, 1, 1, Papang + Pang + 270, n, 0), spdline(33, 1, 2, 6.2 + (n / 10), 0.5, 3.5 + (n * 2 / 10)), 0, -1, 0)
+        fire(x, y, Shape[n], Col, 0, crvline(30, 1, 1, Papang + Pang +   0, n, 0), spdline(33, 2, 2, 6.2 + (n / 10), 0.5, 3.5 + (n * 2 / 10)), 0, -1, 0)
+        fire(x, y, Shape[n], Col, 0, crvline(30, 1, 1, Papang + Pang + 90, n, 0), spdline(33, 2, 2, 6.2 + (n / 10), 0.5, 3.5 + (n * 2 / 10)), 0, -1, 0)
+        fire(x, y, Shape[n], Col, 0, crvline(30, 1, 1, Papang + Pang + 180, n, 0), spdline(33, 2, 2, 6.2 + (n / 10), 0.5, 3.5 + (n * 2 / 10)), 0, -1, 0)
+        fire(x, y, Shape[n], Col, 0, crvline(30, 1, 1, Papang + Pang + 270, n, 0), spdline(33, 2, 2, 6.2 + (n / 10), 0.5, 3.5 + (n * 2 / 10)), 0, -1, 0)
         
         if n &gt;= 2
             {n = 0}
@@ -728,13 +728,15 @@ else
 if (BeginFire &gt; 0) and ((testalarm mod 2 == 0))
     {
     for (n = 0; n &lt;= 4; n += 2)
-        {fire(x, y, "glower", 9, 0, crvline(48, 1, 1, FireAngle + (n * 60), 0, 4.4), spdline(50, 1, 1, -8, 3, 0), 0, -1, 0)}
+        {fire(x, y, "glower",  9, 0, crvline(48, 1, 1, FireAngle + (n * 60), 0, -4), spdline(50, 2, 1, -8, 3, 2.8), 0, -1, 0)}
 
     for (n = 1; n &lt;= 5; n += 2)
-        {fire(x, y, "glower", 11, 0, crvline(48, 1, 1, FireAngle + (n * 60) + Append, 0, 4.4), spdline(50, 1, 1, -8, 3, 0), 0, -1, 0)}
-        
-    FireAngle += 6.6
-    Append += 0.3
+        {fire(x, y, "glower", 11, 0, crvline(48, 1, 1, FireAngle + (n * 60) + Append, 0, -4), spdline(50, 2, 1, -8, 3, 2.4), 0, -1, 0)}
+    
+    fire(x, y, "glower", 0, 0, crvline(48, 2, 0, FireAngle + Append, FireAngle + Append, 270), spdline(50, 2, 1, -8, -2, 1.6), 0, -1, 0)
+       
+    FireAngle += 8.8
+    Append += 0.4
     }
     
 if (BeginFire &gt; 0) and ((testalarm mod 2.5 == 0))
@@ -791,7 +793,7 @@ if testalarm &gt;= 0
 if (testalarm == 5) //and (testalarm &lt;= 1)
     {
     FireAngle = aim_player(x, y)//random(360)
-    fire(x, y, "titan", 3, 2, FireAngle /*crvline(25, 10, 1, FireAngle + (5.2 * 12.5), 5.2, -5.2)*/, 2, 5, -1, 0)
+    fire(x, y, "slug", 3, 2, /*FireAngle + 180*/ crvline(48, 2, 1, FireAngle, "cont", 5), 3 /*spdline(180, 1, 1, 5.6, -3.3, 0)*/, 20, -1, 0)
     
     /*repeat(60)
         {
@@ -807,7 +809,7 @@ if (testalarm == 5) //and (testalarm &lt;= 1)
     
 if testalarm == 3
     {
-    testalarm = 150
+    testalarm = 70
     
     if instance_number(sys_BossMover) &lt;= 0
         {

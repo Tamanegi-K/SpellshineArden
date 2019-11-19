@@ -123,13 +123,27 @@ if ExtraCurveSettings == true
             {
             if CurveSwitch == 1
                 {
-                direction = CurveNew
+                if CurveAppend == "aimp"
+                    {direction = aim_player(x, y)}
+                else if CurveAppend == "cont"
+                    {direction = direction}
+                else if CurveAppend == "revr"
+                    {direction += 180}
+                else
+                    {direction = CurveAppend}
                 CurveSwitch = 2
                 }
                 
             else
                 {
-                direction = CurveAppend
+                if CurveNew == "aimp"
+                    {direction = aim_player(x, y)}
+                else if CurveNew == "cont"
+                    {direction = direction}
+                else if CurveNew == "revr"
+                    {direction += 180}
+                else
+                    {direction = CurveNew}
                 CurveSwitch = 1
                 }
                 
@@ -137,7 +151,7 @@ if ExtraCurveSettings == true
             CurveStep = CurveTime
             }
             
-        else
+        else if (CurveLoop &gt; 0)
             {CurveStep -= 1}
         }
     
@@ -159,10 +173,34 @@ if ExtraCurveSettings == true
         else if (CurveLoop &gt; 0)
             {
             if CurveSwitch == 1
-                {direction += CurveAppend}
+                {
+                if CurveAppend == "aimp"
+                    {direction = aim_player(x, y)}
+                else if CurveAppend == "cont"
+                    {direction = direction}
+                else if CurveAppend == "revr"
+                    {
+                    direction += 180
+                    CurveAppend = "cont"
+                    }
+                else
+                    {direction += CurveAppend}
+                }
                 
             else
-                {direction += CurveNew}
+                {
+                if CurveNew == "aimp"
+                    {direction = aim_player(x, y)}
+                else if CurveNew == "cont"
+                    {direction = direction}
+                else if CurveNew == "revr"
+                    {
+                    direction += 180
+                    CurveNew = "cont"
+                    }
+                else
+                    {direction += CurveNew}
+                }
             
             CurveStep -= 1
             }
@@ -172,7 +210,7 @@ if ExtraCurveSettings == true
 /*else
     {direction = CurveInit}*/
     
-// // // // // // // // // // // // //
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
 
 //Speed (and the wacky stuff)
 if ExtraSpeedSettings == true
@@ -198,7 +236,7 @@ if ExtraSpeedSettings == true
             SpeedStep = SpeedTime
             }
             
-        else
+        else if (SpeedLoop &gt; 0)
             {SpeedStep -= 1}
         }
     
@@ -255,7 +293,7 @@ if ExtraSpeedSettings == true
             SpeedStep = SpeedTime
             }
             
-        else
+        else if (SpeedLoop &gt; 0)
             {
             SpeedStep -= 1
             speed = lerp(speed, SpeedGoal, 0.075)
@@ -404,12 +442,18 @@ instance_destroy(other)
             <string>///Sprite Setting
 
 IWokeUpLikeThis = sprite_get_name(sprite_index)
-//draw_text(x + 10, y, speed)
+//draw_text(x + 30, y, speed)
+//draw_text(x - 30, y, Bounces)
 
     //If a sprite doesn't need rotations (round/circular bullets)
 if (IWokeUpLikeThis != "spr_ball") and (IWokeUpLikeThis != "spr_donut") and (IWokeUpLikeThis != "spr_glower") and (IWokeUpLikeThis != "spr_orb") and (IWokeUpLikeThis != "spr_pew") and (IWokeUpLikeThis != "spr_sphere") and (IWokeUpLikeThis != "spr_titan")
     {
     image_angle = direction
+    
+    if speed &lt; 0
+        {image_xscale = -1}
+    else
+        {image_xscale = 1}
     }
     
     //Glow/Blending ones
