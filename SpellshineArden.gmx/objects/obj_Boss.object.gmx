@@ -631,88 +631,6 @@ if (testalarm == 1)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///a part of phase 6 I found interesting
-/*if (phase == 6.5) and (image_alpha == 1)
-{
-
-if testalarm &gt;= 0
-    {testalarm -= 1}
-
-else
-    {
-    Angleh = random(360)
-    Papang = 0
-    testalarm = 295
-    }
-
-if (testalarm &gt;= 125) and ((testalarm mod 3) == 0) and (BeginFire == 4)
-    {
-    Pang = 0
-    repeat(6)
-        {
-        if Col &gt; 11
-            {Col = 0}  
-            
-        if n == 2
-            {
-            fire(x, y, Shape[n], Col, 0, Papang + Pang      , n, n, spdline(33, 1, 2, 6.2, 0.5, 3.5), 0, 0, 0, 0)
-            fire(x, y, Shape[n], Col, 0, Papang + Pang + 120, n, n, spdline(33, 1, 2, 6.2, 0.5, 3.5), 0, 0, 0, 0)
-            fire(x, y, Shape[n], Col, 0, Papang + Pang + 240, n, n, spdline(33, 1, 2, 6.2, 0.5, 3.5), 0, 0, 0, 0)
-            }
-        
-        if n &gt;= 2
-            {n = 0}
-        else
-            {n += 1}
-        
-        if Ghi &gt;= 9
-            {
-            Ghi = 0
-            Col += 1
-            }
-        else
-            {Ghi += 1}
-            
-        Pang -= 14.3
-        }
-    Papang -= 36
-    }
-    
-if (testalarm == 1)
-    {
-    if instance_number(sys_BossMover) &lt;= 0
-        {
-        Mover = instance_create(x, y, sys_BossMover)
-        Mover.Activity = 11
-        
-        Shape[2] = "kunai"
-        n = 0
-        Col = 0
-        BeginFire = 4
-        }
-    }
-    
-}
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
             <string>///phase7
 if (phase == 7) and (image_alpha == 1)
 {
@@ -728,10 +646,10 @@ else
 if (BeginFire &gt; 0) and ((testalarm mod 2 == 0))
     {
     for (n = 0; n &lt;= 4; n += 2)
-        {fire(x, y, "glower",  9, 0, crvline(48, 1, 1, FireAngle + (n * 60), 0, -4), spdline(50, 2, 1, -8, 3, 2.8), 0, -1, 0)}
+        {fire(x, y, "glower",  9, 0, crvline(48, 1, 1, FireAngle + (n * 60), 0, -4), spdline(50, 2, 1, -8, 3, 2.5), 0, -1, 0)}
 
     for (n = 1; n &lt;= 5; n += 2)
-        {fire(x, y, "glower", 11, 0, crvline(48, 1, 1, FireAngle + (n * 60) + Append, 0, -4), spdline(50, 2, 1, -8, 3, 2.4), 0, -1, 0)}
+        {fire(x, y, "glower", 11, 0, crvline(48, 1, 1, FireAngle + (n * 60) + Append, 0, -4), spdline(50, 2, 1, -8, 3, 2.1), 0, -1, 0)}
     
     fire(x, y, "glower", 0, 0, crvline(48, 2, 0, FireAngle + Append, FireAngle + Append, 270), spdline(50, 2, 1, -8, -2, 1.6), 0, -1, 0)
        
@@ -752,7 +670,7 @@ if (testalarm == 1)
     if instance_number(sys_BossMover) &lt;= 0
         {
         Mover = instance_create(x, y, sys_BossMover)
-        Mover.Activity = 2
+        Mover.Activity = 6
         }
     
     BeginFire += 1
